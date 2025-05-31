@@ -175,19 +175,19 @@ if (not game:IsLoaded()) then
   
  
  local GetConfig = function()
-     local read, data = pcall(readfile, "SWAYSMENU.json");
+     local read, data = pcall(readfile, "BoltzWare.json");
      local canDecode, config = pcall(HttpService.JSONDecode, HttpService, data);
      if (read and canDecode) then
          local Decoded = DecodeConfig(config);
          if (Decoded.Version ~= DefaultSettings.Version) then
              local Encoded = HttpService:JSONEncode(EncodeConfig(DefaultSettings));
-             writefile("SWAYSMENU.json", Encoded);
+             writefile("BoltzWare.json", Encoded);
              return DefaultSettings;
          end
          return Decoded;
      else
          local Encoded = HttpService:JSONEncode(EncodeConfig(DefaultSettings));
-         writefile("SWAYSMENU.json", Encoded);
+         writefile("boltzware.json", Encoded);
          return DefaultSettings
      end
  end
@@ -722,11 +722,11 @@ if (not game:IsLoaded()) then
  end
   
  local MainUI = UILibrary.new(Color3.fromRGB(255, 79, 87));
- local Window = MainUI:LoadWindow('<font color="#ff4f57">sways</font> method', UDim2.fromOffset(400, 279));
+ local Window = MainUI:LoadWindow('<font color="#ff4f57">boltz</font> ware', UDim2.fromOffset(400, 279));
  
  -- Initialize the UI with the purple theme
  local MainUI = UILibrary.new(Color3.fromRGB(67, 7, 241)); -- Hex #4307f1
- local Window = MainUI:LoadWindow('<font color="#4307f1">sways</font> method', UDim2.fromOffset(400, 279));
+ local Window = MainUI:LoadWindow('<font color="#4307f1">boltz</font> ware', UDim2.fromOffset(400, 279));
  local ESP = Window.NewPage("esp");
  local Aimbot = Window.NewPage("aimbot");
  local EspSettingsUI = ESP.NewSection("Esp");
@@ -891,5 +891,5 @@ if (not game:IsLoaded()) then
  while wait(5) do
      Settings.WindowPosition = Window.GetPosition();
      local Encoded = HttpService:JSONEncode(EncodeConfig(Settings));
-     writefile("SWAYSMENU.json", Encoded);
+     writefile("boltzware.json", Encoded);
  end
