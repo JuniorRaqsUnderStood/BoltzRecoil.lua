@@ -23,7 +23,7 @@ if (not game:IsLoaded()) then
   
  
  -- Load the UI library with the purple theme
-local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/JuniorRaqsUnderStood/script/refs/heads/main/BoltzUI.lua"))();();
+local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/JuniorRaqsUnderStood/script/refs/heads/main/BoltzUI.lua"))();
   
  
  local PlaceId = game.PlaceId
