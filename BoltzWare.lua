@@ -2,7 +2,7 @@ if (not game:IsLoaded()) then
     game.Loaded:Wait();
 end
 
-local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/35psnipe/script/main/BoltzWare.lua"))();
+local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/JuniorRaqsUnderStood/script/main/BoltzWare.lua"))();
 
 local PlaceId = game.PlaceId
 
