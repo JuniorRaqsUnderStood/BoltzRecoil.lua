@@ -635,7 +635,7 @@ for Index, Function in pairs(HookedFunctions) do
 end
 
 local MainUI = UILibrary.new(Color3.fromRGB(255, 79, 87));
-local Window = MainUI:LoadWindow('<font color="#ff4f57">Boltzware</font>', UDim2.fromOffset(400, 279));
+local Window = MainUI:LoadWindow('<font color="#fff700">Boltzware</font>', UDim2.fromOffset(400, 279));
 local ESP = Window.NewPage("esp");
 local Aimbot = Window.NewPage("aimbot");
 local EspSettingsUI = ESP.NewSection("Esp");
@@ -771,7 +771,7 @@ Aimbot.ColorPicker("Fov Color", AimbotSettings.FovColor, function(Callback)
     FOV.Color = Callback
     Snaplines.Color = Callback
 end);
-Aimbot.Slider("Fov Size", {Min = 5, Max = 500, Default = AimbotSettings.FovSize, Step = 10}, function(Callback)
+Aimbot.Slider("Fov Size", {Min = 5, Max = 500, Default = AimbotSettings.FovSize, Step = 5}, function(Callback)
     AimbotSettings.FovSize = Callback
     FOV.Radius = Callback
 end);
