@@ -2,7 +2,7 @@ if (not game:IsLoaded()) then
     game.Loaded:Wait();
 end
 
-local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/JuniorRaqsUnderStood/script/main/ui.lua"))();
+local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-esp/main/ui.lua"))();
 
 local PlaceId = game.PlaceId
 
@@ -169,6 +169,17 @@ local Characters = {}
 local CustomGet = {
     [0] = function()
         return {}
+    end
+,
+    [9196514723] = function()
+        return {
+            GetCharacter = function(Player)
+                return Player.Character
+            end,
+            GetTeam = function(Player)
+                return Player.Team
+            end
+        }
     end
 }
 
