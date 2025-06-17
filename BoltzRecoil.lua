@@ -12,18 +12,12 @@ do -- bypass
 		end
 	end
 end
-
-
-
-
-
 local UserInputService = game:GetService("UserInputService");
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players");
 local LocalPlayer = Players.LocalPlayer;
 local Mouse = LocalPlayer:GetMouse();
 local CurrentCamera = workspace.CurrentCamera;
-
 local function NewDrawing(type, info, tbl)
 	local drawing = Drawing.new(type);	
 	for idx, val in info do
@@ -34,7 +28,6 @@ local function NewDrawing(type, info, tbl)
 	end
 	return drawing;
 end
-
 local Framework = {
 	Enabled = false;
 	Triggerbot = false;
@@ -48,7 +41,6 @@ local Framework = {
 	AimlockKey = "MouseButton2";
 	StickyAimKey = "F";
 	Smoothing = .1;
-	
 	Whitelist = {};
 	Target = {
 		Character = nil;
@@ -86,12 +78,10 @@ local Framework = {
 		});
 	};
 }
-
 local Keys = Framework.Keys;
 local function IsKeyDown(str)
 	return Keys[str];
 end
-
 local function WallCheck(Character, Origin, Position)
 	local Params = RaycastParams.new();
 	Params.FilterDescendantsInstances = {
@@ -100,12 +90,10 @@ local function WallCheck(Character, Origin, Position)
 	};
 	return (not workspace:Raycast(Origin, Position - Origin, Params));
 end
-
 local function ToViewport(Position)
 	local Point, On = CurrentCamera:WorldToViewportPoint(Position);
 	return Vector2.new(Point.X, Point.Y), On;
 end
-
 local function ClosestPartWithPrediction(Origin, Character, DeltaTime)
 	local Distance, Point, Part = math.huge, nil, nil;
 	for _, v in pairs(Character:GetChildren()) do
@@ -128,7 +116,6 @@ local function ClosestPartWithPrediction(Origin, Character, DeltaTime)
 	end
 	return Part, Point;
 end
-
 -- This is no longer used because I've made the new function with prediction, feel free to delete it (or keep it if you need it).
 local function ClosestPart(Origin, Character)
 	local Distance, Point, Part = math.huge, nil, nil;
@@ -180,7 +167,6 @@ local function GetBounds(Character)
 	if (not OnB) then
 		return;
 	end
-
 	local BoundsY = BottomPoint.Y - TopPoint.Y;
 	local Bounds = Vector2.new(BoundsY / 2, BoundsY);
 	return Bounds, BottomPoint - Vector2.new(Bounds.X / 2, BoundsY), Top.Position;
@@ -222,7 +208,6 @@ local function ESP(Player)
 		Color = Color3.new(0, 0, 0)
 	}, Info.Drawings);
 	local ESPSettings = Framework.ESP;
-
 	local healthinfo = ESPSettings.Health;
 	local nameinfo =  ESPSettings.Name;
 	local distanceinfo = ESPSettings.Distance;
@@ -249,20 +234,17 @@ local function ESP(Player)
 			return;
 		end
 		Hidden = false;
-
 		if (boxinfo.Enabled) then
 			local Box1 = Boxs[1];
 			Box1.Position = Position - Vector2.new(1, 1);
 			Box1.Size = Bounds + Vector2.new(2, 2);
 			Box1.Color = Color3.fromRGB(0, 0, 0);
 			Box1.Visible = true;
-
 			local Box2 = Boxs[2];
 			Box2.Position = Position - Vector2.new(2, 2);
 			Box2.Size = Bounds + Vector2.new(4, 4);
 			Box2.Color = boxinfo.Color;
 			Box2.Visible = true;
-
 			local Box3 = Boxs[3];
 			Box3.Position = Position - Vector2.new(3, 3);
 			Box3.Size = Bounds + Vector2.new(6, 6);
@@ -276,7 +258,6 @@ local function ESP(Player)
 				v.Visible = false;
 			end
 		end
-
 		if (ESPSettings.Name.Enabled) then
 			local TextBounds = Name.TextBounds;
 			Name.Position = Position + Vector2.new(Bounds.X / 2 - TextBounds.X / 2, -TextBounds.Y - 4);
@@ -285,7 +266,6 @@ local function ESP(Player)
 		else
 			Name.Visible = false;
 		end
-
 		local LocalCharacter = LocalPlayer.Character;
 		if (ESPSettings.Distance.Enabled and LocalCharacter) then
 			local TextBounds = Distance.TextBounds;
@@ -296,7 +276,6 @@ local function ESP(Player)
 		else
 			Distance.Visible = false;
 		end
-
 		if (weaponinfo.Enabled) then
 			Weapon.Visible = true;
 			Weapon.Position = Position + Vector2.new(Bounds.X + 6, -5);
@@ -310,23 +289,18 @@ local function ESP(Player)
 		else
 			Weapon.Visible = false;
 		end
-
 		if (healthinfo.Enabled) then
 			local HealthbarSize = healthinfo.Thickness;
 			local HealthSize = Vector2.new(HealthbarSize, Bounds.Y + 6);
 			local HealthPosition = Position - Vector2.new(HealthbarSize + 3, 3);
 			local Health = Player.Character.Humanoid.Health;
 			local Percent =  math.max(0, math.min(1, Health / 100));
-			
 			BackHealthbar.Position = HealthPosition;
 			BackHealthbar.Size = HealthSize;
 			BackHealthbar.Visible = true;
-
 			OutlineHealthbar.Position = HealthPosition;
 			OutlineHealthbar.Size = HealthSize;
 			OutlineHealthbar.Visible = true;
-
-
 			local Offset = (Bounds.Y + 6) * (1 - Percent);
 			Healthbar.Position = HealthPosition + Vector2.new(0, Offset);
 			Healthbar.Color = healthinfo.Color;
@@ -337,15 +311,12 @@ local function ESP(Player)
 			BackHealthbar.Visible = false;
 			OutlineHealthbar.Visible = false;
 		end
-
 	end)
 	Framework.ESP.Running[Player] = Info;
 end
-
 local function lerp(v0, v1, t) -- wiki
 	return (1 - t) * v0 + t * v1;
 end;
-
 local function Aimlock(Origin, Point)
 	local Smoothing = Framework.Smoothing;
 	if (not Framework.UseCamera) then
@@ -400,8 +371,6 @@ local function Targeting()
 	end
 	Framework.Target = Info;
 end
-
-
 RunService.Heartbeat:Connect(function(DeltaTime)
 	if not Framework.Enabled then
 		return;
@@ -427,7 +396,6 @@ RunService.Heartbeat:Connect(function(DeltaTime)
 		Aimlock(Origin, Point);
 	end
 end)
-
 do -- ESP Setup
 	Players.PlayerRemoving:Connect(function(Player)
 		ClearESP(Framework.ESP.Running[Player]);
@@ -467,7 +435,6 @@ do -- Key Handler
 		Keys[UIT.Name] = false;
 	end)
 end
-
 do -- No Recoil
 	local MathUtility = require(game:GetService("ReplicatedStorage").Modules.Utilities.Math)
 	local RandomizeHook = MathUtility.Randomize2
@@ -475,13 +442,11 @@ do -- No Recoil
 		return (RandomizeHook(...) * Framework.RecoilPercentage);
 	end
 end
-
 do -- UI!
 	local repo = 'https://raw.githubusercontent.com/smi9/LinoriaLib/main/'
 	local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 	local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
-	
 	local Window = Library:CreateWindow({
 		Title = 'Sways No Recoil Method',
 		Center = true,
@@ -489,21 +454,17 @@ do -- UI!
 		TabPadding = 8,
 		MenuFadeTime = 0.2
 	})
-	
 	local Tabs = {
 		Main = Window:AddTab('Main'),
 		['UI Settings'] = Window:AddTab('UI Settings'),
 	}
-	
 	local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Combat');
 	local RightGroupBox = Tabs.Main:AddRightGroupbox('ESP');
-	
 	do -- Combat
 		LeftGroupBox:AddToggle('C_Aimlock', {
 			Text = 'Aimlock',
 			Default = false,
 			Tooltip = 'Locks Onto Target',
-
 			Callback = function(Value)
 				Framework.Enabled = Value;
 			end
@@ -520,7 +481,6 @@ do -- UI!
 			Text = 'Triggerbot',
 			Default = false,
 			Tooltip = 'Automatically Shoots',
-
 			Callback = function(Value)
 				Framework.Triggerbot = Value;
 			end
@@ -544,7 +504,6 @@ do -- UI!
 			Text = 'WallCheck',
 			Default = false,
 			Tooltip = 'Visible Only',
-
 			Callback = function(Value)
 				Framework.WallCheck = Value;
 			end
@@ -553,7 +512,6 @@ do -- UI!
 			Text = 'Sticky Aim',
 			Default = false,
 			Tooltip = 'Keeps A Target',
-
 			Callback = function(Value)
 				Framework.StickyAim = Value;
 			end
@@ -570,7 +528,6 @@ do -- UI!
 			Text = 'Use Camera',
 			Default = false,
 			Tooltip = 'Uses Camera/Mouse',
-
 			Callback = function(Value)
 				Framework.UseCamera = Value;
 			end
@@ -587,7 +544,6 @@ do -- UI!
 			Text = 'Show Circle',
 			Default = false,
 			Tooltip = 'Hides/Shows Circle',
-
 			Callback = function(Value)
 				Circle.Visible = Value;
 			end
@@ -614,7 +570,6 @@ do -- UI!
 				Framework.Smoothing = Value;
 			end
 		});
-
 		LeftGroupBox:AddDropdown('C_Part', {
 			Values = {
 				"Torso",
@@ -627,10 +582,8 @@ do -- UI!
 			},
 			Default = 2, -- number index of the value / string
 			Multi = false, -- true / false, allows multiple choices to be selected
-
 			Text = 'Body Part',
 			Tooltip = 'Aim Part', -- Information shown when you hover over the dropdown
-
 			Callback = function(Value)
 				Framework.Part = Value;
 			end
@@ -648,7 +601,6 @@ do -- UI!
 			end
 		})
 	end
-
 	do -- ESP
 		RightGroupBox:AddToggle('E_Enabled', {
 			Text = 'Enabled',
@@ -745,12 +697,8 @@ do -- UI!
 			end
 		})
 	end
-
-	
 	Library:SetWatermarkVisibility(false);
-
 	local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
-
 	MenuGroup:AddButton('Unload', function()
 		Library:Unload()
 	end);
@@ -759,21 +707,15 @@ do -- UI!
 		NoUI = true,
 		Text = 'Menu keybind'
 	});
-
 	Library.ToggleKeybind = Options.MenuKeybind;
-
 	ThemeManager:SetLibrary(Library)
 	SaveManager:SetLibrary(Library)
-
 	SaveManager:IgnoreThemeSettings()
-
 	SaveManager:SetIgnoreIndexes({
 		'MenuKeybind'
 	})
-
 	ThemeManager:SetFolder('Ender')
 	SaveManager:SetFolder('Ender/ChicBlocko')
-
 	SaveManager:BuildConfigSection(Tabs['UI Settings'])
 	ThemeManager:ApplyToTab(Tabs['UI Settings'])
 	SaveManager:LoadAutoloadConfig()
