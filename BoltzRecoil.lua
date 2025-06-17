@@ -435,12 +435,14 @@ do -- Key Handler
 		Keys[UIT.Name] = false;
 	end)
 end
-do -- No Recoil
-	local MathUtility = require(game:GetService("ReplicatedStorage").Modules.Utilities.Math)
-	local RandomizeHook = MathUtility.Randomize2
-	MathUtility.Randomize2 = function(...)
-		return (RandomizeHook(...) * Framework.RecoilPercentage);
-	end
+do -- Safe No Recoil Hook
+local MathUtility = require(game:GetService("ReplicatedStorage").Modules.Utilities.Math)
+local OriginalRandomize2 = MathUtility.Randomize2
+local function CustomRandomize2(...)
+    return (OriginalRandomize2(...) * Framework.RecoilPercentage)
+end
+Framework.CustomRandomize2 = CustomRandomize2
+end
 end
 do -- UI!
 	local repo = 'https://raw.githubusercontent.com/smi9/LinoriaLib/main/'
