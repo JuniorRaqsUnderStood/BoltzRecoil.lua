@@ -1,24 +1,4 @@
-do -- safer bypass
-	for i, v in next, getgc(true) do
-		if type(v) == 'table' then
-			local success = pcall(function()
-				if rawget(v, "namecallInstance") and rawget(v, "newindexInstance") and rawget(v, "indexInstance") and rawget(v, "indexEnum") and rawget(v, "namecallEnum") and rawget(v, "eqEnum") then
-					rawset(v, "namecallInstance", nil)
-					rawset(v, "newindexInstance", nil)
-					rawset(v, "indexInstance", nil)
-					rawset(v, "indexEnum", nil)
-					rawset(v, "namecallEnum", nil)
-					rawset(v, "eqEnum", nil)
-				end
-			end)
-			if not success then
-				warn("Skipped readonly table")
-			end
-		end
-	end
-end
-
-
+do -- bypass
 	for i, v in next, getgc(true) do
 		if type(v) == 'table' then
 			if rawget(v, "namecallInstance") and rawget(v, "newindexInstance") and rawget(v, "indexInstance") and rawget(v, "indexEnum") and rawget(v, "namecallEnum") and rawget(v, "eqEnum") then
@@ -503,7 +483,7 @@ do -- UI!
 	local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 	
 	local Window = Library:CreateWindow({
-		Title = 'Boltz No Recoil Method',
+		Title = 'Sways No Recoil Method',
 		Center = true,
 		AutoShow = true,
 		TabPadding = 8,
