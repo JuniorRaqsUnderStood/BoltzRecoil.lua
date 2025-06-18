@@ -175,19 +175,19 @@ local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jun
   
  
  local GetConfig = function()
-     local read, data = pcall(readfile, "BoltzWare.json");
+     local read, data = pcall(readfile, "ScriptWare.json");
      local canDecode, config = pcall(HttpService.JSONDecode, HttpService, data);
      if (read and canDecode) then
          local Decoded = DecodeConfig(config);
          if (Decoded.Version ~= DefaultSettings.Version) then
              local Encoded = HttpService:JSONEncode(EncodeConfig(DefaultSettings));
-             writefile("BoltzWare.json", Encoded);
+             writefile("ScriptWare.json", Encoded);
              return DefaultSettings;
          end
          return Decoded;
      else
          local Encoded = HttpService:JSONEncode(EncodeConfig(DefaultSettings));
-         writefile("boltzware.json", Encoded);
+         writefile("ScriptWare.json", Encoded);
          return DefaultSettings
      end
  end
@@ -722,11 +722,11 @@ local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jun
  end
   
  local MainUI = UILibrary.new(Color3.fromRGB(255, 79, 87));
- local Window = MainUI:LoadWindow('<font color="#ff4f57">boltz</font> ware', UDim2.fromOffset(400, 279));
+ local Window = MainUI:LoadWindow('<font color="#ff4f57">script</font> ware', UDim2.fromOffset(400, 279));
  
  -- Initialize the UI with the purple theme
  local MainUI = UILibrary.new(Color3.fromRGB(67, 7, 241)); -- Hex #4307f1
- local Window = MainUI:LoadWindow('<font color="#4307f1">boltz</font> ware', UDim2.fromOffset(400, 279));
+ local Window = MainUI:LoadWindow('<font color="#4307f1">script</font> ware', UDim2.fromOffset(400, 279));
  local ESP = Window.NewPage("esp");
  local Aimbot = Window.NewPage("aimbot");
  local EspSettingsUI = ESP.NewSection("Esp");
@@ -891,5 +891,5 @@ local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jun
  while wait(5) do
      Settings.WindowPosition = Window.GetPosition();
      local Encoded = HttpService:JSONEncode(EncodeConfig(Settings));
-     writefile("boltzware.json", Encoded);
+     writefile("scriptzware.json", Encoded);
  end
