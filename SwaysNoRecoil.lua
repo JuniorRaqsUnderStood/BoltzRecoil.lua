@@ -1,3 +1,4 @@
+
 do -- bypass
 	for i, v in next, getgc(true) do
 		if type(v) == 'table' then
@@ -14,8 +15,8 @@ do -- bypass
 end
 
 mousemoverel = mousemoverel;
-Options = Options;
-Drawing = Drawing;
+-- Options = Options; (commented out due to readonly issue)
+-- Drawing = Drawing; (commented out due to readonly issue)
 
 local UserInputService = game:GetService("UserInputService");
 local RunService = game:GetService("RunService")
