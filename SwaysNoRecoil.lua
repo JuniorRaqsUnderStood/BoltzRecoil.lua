@@ -484,7 +484,7 @@ do -- UI!
 	local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 	
 	local Window = Library:CreateWindow({
-		Title = 'Sways No Recoil Method',
+		Title = 'Boltz Recoil',
 		Center = true,
 		AutoShow = true,
 		TabPadding = 8,
@@ -772,8 +772,8 @@ do -- UI!
 		'MenuKeybind'
 	})
 
-	ThemeManager:SetFolder('Ender')
-	SaveManager:SetFolder('Ender/ChicBlocko')
+	ThemeManager:SetFolder('Boltz')
+	SaveManager:SetFolder('Boltz/Recoil')
 
 	SaveManager:BuildConfigSection(Tabs['UI Settings'])
 	ThemeManager:ApplyToTab(Tabs['UI Settings'])
