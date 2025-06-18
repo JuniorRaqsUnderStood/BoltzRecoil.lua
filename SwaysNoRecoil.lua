@@ -15,8 +15,9 @@ do -- bypass
 end
 
 mousemoverel = mousemoverel;
--- Options = Options; (commented out due to readonly issue)
--- Drawing = Drawing; (commented out due to readonly issue)
+Options = Options;
+Drawing = Drawing;
+
 
 local UserInputService = game:GetService("UserInputService");
 local RunService = game:GetService("RunService")
